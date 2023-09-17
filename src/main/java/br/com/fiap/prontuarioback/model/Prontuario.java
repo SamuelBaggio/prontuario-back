@@ -40,7 +40,6 @@ public class Prontuario {
     private Long id;
 
     @NotNull(message = "nome não pode ser nulo")
-    @Pattern(regexp = "[a-zA-Z ]+", message = "O nome deve conter apenas letras e espaços")
     private String nomePaciente;
 
     @NotBlank
@@ -68,7 +67,7 @@ public class Prontuario {
             this,
             linkTo(methodOn(ProntuarioController.class).show(id)).withSelfRel(),
             linkTo(methodOn(ProntuarioController.class).destroy(id)).withRel("delete"),
-            linkTo(methodOn(ProntuarioController.class).index(null, Pageable.unpaged())).withRel("all"),
+            linkTo(methodOn(ProntuarioController.class).index()).withRel("all"),
             linkTo(methodOn(PacienteController.class).show(this.getPaciente().getId())).withRel("paciente"),           
             linkTo(methodOn(ClinicoController.class).show(this.getClinico().getId())).withRel("clinico")
 

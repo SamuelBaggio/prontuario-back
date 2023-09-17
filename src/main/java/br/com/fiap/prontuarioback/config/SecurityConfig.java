@@ -20,32 +20,50 @@ public class SecurityConfig {
     @Autowired
     AuthorizationFilter authorizationFilter;
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-        return http
-                .cors()
-                .and()
-                .authorizeHttpRequests()
-                    .requestMatchers(HttpMethod.POST, "/api/registrar").permitAll()
-                    .requestMatchers(HttpMethod.POST, "/api/login").permitAll()
-                    .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
-                    .anyRequest().authenticated()
-                .and()
-                .csrf().disable()
-                .formLogin().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .addFilterBefore(authorizationFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
-    }  
+    // @Bean
+    // public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+    //     return http
+    //             .cors()
+    //             .and()
+    //             .authorizeHttpRequests()
+    //                 .requestMatchers(HttpMethod.POST, "/api/registrar").permitAll()
+    //                 .requestMatchers(HttpMethod.POST, "/api/login").permitAll()
+    //                 .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+    //                 .anyRequest().authenticated()
+    //             .and()
+    //             .csrf().disable()
+    //             .formLogin().disable()
+    //             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+    //             .and()
+    //             .addFilterBefore(authorizationFilter, UsernamePasswordAuthenticationFilter.class)
+    //             .build();
+    // }  
     
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception{
         return config.getAuthenticationManager();
     }
 
+    // @Bean
+    // public PasswordEncoder passwordEncoder(){
+    //     return new BCryptPasswordEncoder();
+    // }
+
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http.authorizeHttpRequests()
+                        .anyRequest().permitAll()
+                    .and()
+                        .csrf().disable()
+                        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                    .and()
+                        .headers().frameOptions().sameOrigin()
+                    .and()
+                    .build();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }

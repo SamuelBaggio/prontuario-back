@@ -32,12 +32,10 @@ public class Paciente {
     private Long id;
 
     @NotNull(message = "nome não pode ser nulo")
-    @Pattern(regexp = "[a-zA-Z ]+", message = "O nome deve conter apenas letras e espaços")
     @Column(name = "nome_paciente")
     private String nome;
 
     @NotNull(message = "cpf não pode ser nulo")
-    @Pattern(regexp = "\\d{11}", message = "O CPF deve conter 11 dígitos")
     @Column(name = "cpf_paciente")
     private String cpf;
 
@@ -46,7 +44,6 @@ public class Paciente {
     private String email;
 
     @NotNull
-    @Pattern(regexp = "\\d{8}", message = "O telefone deve conter 8 dígitos")
     @Column(name = "telefone_paciente")
     private String telefone;
 

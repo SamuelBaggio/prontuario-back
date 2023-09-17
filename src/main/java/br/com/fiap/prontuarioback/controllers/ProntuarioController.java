@@ -1,5 +1,7 @@
 package br.com.fiap.prontuarioback.controllers;
 
+import java.util.List;
+
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -35,7 +37,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/api/prontuario")
 @Slf4j
-@SecurityRequirement(name = "bearer-key")
+// @SecurityRequirement(name = "bearer-key")
 @Tag(name="prontuario")
 public class ProntuarioController {
     
@@ -48,18 +50,16 @@ public class ProntuarioController {
     @Autowired
     PacienteRepository pacienteRepository;
 
-    @Autowired
-    PagedResourcesAssembler<Object> assembler;
-
     @GetMapping
-    public PagedModel<EntityModel<Object>> index(@RequestParam(required = false) String busca,
-        @ParameterObject @PageableDefault(size=3) Pageable pageable){
+    public List<Prontuario> index(){
 
-            Page<Prontuario> prontuarios = (busca == null) ?
-                prontuarioRepository.findAll(pageable):
-                prontuarioRepository.findByNomeContaining(busca, pageable);
+            // Page<Prontuario> prontuarios = (busca == null) ?
+            //     prontuarioRepository.findAll(pageable):
+            //     prontuarioRepository.findByNomeContaining(busca, pageable);
 
-            return assembler.toModel(prontuarios.map(Prontuario::toEntityModel));
+            // return assembler.toModel(prontuarios.map(Prontuario::toEntityModel));
+
+            return prontuarioRepository.findAll();
     }
 
     @PostMapping

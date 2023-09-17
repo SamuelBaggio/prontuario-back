@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import br.com.fiap.prontuarioback.model.Clinico;
@@ -15,6 +16,7 @@ import br.com.fiap.prontuarioback.repository.PacienteRepository;
 import br.com.fiap.prontuarioback.repository.ProntuarioRepository;
 import br.com.fiap.prontuarioback.repository.UsuarioRepository;
 
+@Configuration
 public class DatabaseSeeder implements CommandLineRunner{
     
     @Autowired

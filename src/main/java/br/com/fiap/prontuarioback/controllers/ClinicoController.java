@@ -25,7 +25,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/clinicos")
-@SecurityRequirement(name = "bearer-key")
+// @SecurityRequirement(name = "bearer-key")
 @Tag(name="clinico")
 public class ClinicoController {
     
