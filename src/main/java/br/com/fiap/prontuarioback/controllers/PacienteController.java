@@ -19,14 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.fiap.prontuarioback.exceptions.RestNotFoundException;
 import br.com.fiap.prontuarioback.model.Paciente;
 import br.com.fiap.prontuarioback.repository.PacienteRepository;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/pacientes")
-// @SecurityRequirement(name = "bearer-key")
-@Tag(name="paciente")
 public class PacienteController {
     
     Logger log = LoggerFactory.getLogger(getClass());

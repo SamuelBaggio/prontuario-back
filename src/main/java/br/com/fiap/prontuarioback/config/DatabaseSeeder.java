@@ -5,16 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import br.com.fiap.prontuarioback.model.Clinico;
 import br.com.fiap.prontuarioback.model.Paciente;
 import br.com.fiap.prontuarioback.model.Prontuario;
-import br.com.fiap.prontuarioback.model.Usuario;
 import br.com.fiap.prontuarioback.repository.ClinicoRepository;
 import br.com.fiap.prontuarioback.repository.PacienteRepository;
 import br.com.fiap.prontuarioback.repository.ProntuarioRepository;
-import br.com.fiap.prontuarioback.repository.UsuarioRepository;
 
 @Configuration
 public class DatabaseSeeder implements CommandLineRunner{
@@ -28,18 +25,8 @@ public class DatabaseSeeder implements CommandLineRunner{
     @Autowired
     PacienteRepository pacienteRepository;
 
-    @Autowired 
-    UsuarioRepository usuarioRepository;
-
-    @Autowired
-    PasswordEncoder encoder;
-
     @Override
     public void run(String... args) throws Exception {
-        usuarioRepository.save(Usuario.builder().nome("Samuel")
-            .email("samuel@fiap.com.br")
-            .senha(encoder.encode("123456"))
-            .build());
 
         Clinico c1 = new Clinico(1l, "João Carlos", "11111111123", "joao.carlos@gmail.com");
         Clinico c2 = new Clinico(2l, "Roberto Carlos", "11111111124", "roberto.carlos@gmail.com");
