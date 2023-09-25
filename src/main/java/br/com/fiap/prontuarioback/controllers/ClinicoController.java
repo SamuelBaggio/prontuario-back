@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.fiap.prontuarioback.exceptions.RestNotFoundException;
 import br.com.fiap.prontuarioback.model.Clinico;
 import br.com.fiap.prontuarioback.repository.ClinicoRepository;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 
 @RestController
+@SecurityRequirement(name = "bearer-key")
 @RequestMapping("/api/clinicos")
 public class ClinicoController {
     

@@ -5,13 +5,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import br.com.fiap.prontuarioback.model.Clinico;
 import br.com.fiap.prontuarioback.model.Paciente;
 import br.com.fiap.prontuarioback.model.Prontuario;
+import br.com.fiap.prontuarioback.model.Usuario;
 import br.com.fiap.prontuarioback.repository.ClinicoRepository;
 import br.com.fiap.prontuarioback.repository.PacienteRepository;
 import br.com.fiap.prontuarioback.repository.ProntuarioRepository;
+import br.com.fiap.prontuarioback.repository.UsuarioRepository;
 
 @Configuration
 public class DatabaseSeeder implements CommandLineRunner{
@@ -25,6 +28,12 @@ public class DatabaseSeeder implements CommandLineRunner{
     @Autowired
     PacienteRepository pacienteRepository;
 
+    @Autowired
+    UsuarioRepository usuarioRepository;
+
+    @Autowired
+    PasswordEncoder encoder;
+
     @Override
     public void run(String... args) throws Exception {
 
@@ -37,10 +46,16 @@ public class DatabaseSeeder implements CommandLineRunner{
         pacienteRepository.saveAll(List.of(p1, p2));
 
         prontuarioRepository.saveAll(List.of(
-            Prontuario.builder().nomePaciente("Samuel").sintomas("Tosse").diagnostico("Alergia").medicamentos("Predinisolona").paciente(p1).clinico(c2).build(),            
-            Prontuario.builder().nomePaciente("Letícia").sintomas("Tontura").diagnostico("Enxaqueca").medicamentos("Dipirona").paciente(p2).clinico(c1).build()
+            Prontuario.builder().nomePaciente("Samuel").sintomas("Tosse").diagnostico("Alergia").medicamentos("Predinisolona").clinico(c2).build(),            
+            Prontuario.builder().nomePaciente("Letícia").sintomas("Tontura").diagnostico("Enxaqueca").medicamentos("Dipirona").clinico(c1).build()
         ));
 
+        usuarioRepository.save(Usuario.builder()
+            .nome("Samuel Baggio")
+            .email("samuelsbaggio@gmail.com")
+            .senha(encoder.encode("123456"))
+            .build()
+            );
     }
 
     

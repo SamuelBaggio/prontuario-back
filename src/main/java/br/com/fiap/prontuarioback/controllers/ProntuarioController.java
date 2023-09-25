@@ -20,11 +20,13 @@ import br.com.fiap.prontuarioback.model.Prontuario;
 import br.com.fiap.prontuarioback.repository.ClinicoRepository;
 import br.com.fiap.prontuarioback.repository.PacienteRepository;
 import br.com.fiap.prontuarioback.repository.ProntuarioRepository;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/api/prontuario")
+@SecurityRequirement(name = "bearer-key")
 @Slf4j
 public class ProntuarioController {
     
@@ -48,7 +50,7 @@ public class ProntuarioController {
         log.info("cadastrando prontuario" + prontuario);
         prontuarioRepository.save(prontuario);
         prontuario.setClinico(clinicoRepository.findById(prontuario.getClinico().getId()).get());        
-        prontuario.setPaciente(pacienteRepository.findById(prontuario.getPaciente().getId()).get());
+        // prontuario.setPaciente(pacienteRepository.findById(prontuario.getPaciente().getId()).get());
         return ResponseEntity.status(HttpStatus.CREATED).body(prontuario.toEntityModel());
     }
 

@@ -52,9 +52,9 @@ public class Prontuario {
     @Size(min = 5, max = 255)
     private String medicamentos;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.DETACH })
-    @JoinColumn(name = "id_paciente", referencedColumnName = "id_paciente", foreignKey = @ForeignKey(name = "fk_prontuario_paciente"))
-    private Paciente paciente;
+    // @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.REMOVE })
+    // @JoinColumn(name = "id_paciente", referencedColumnName = "id_paciente", foreignKey = @ForeignKey(name = "fk_prontuario_paciente"))
+    // private Paciente paciente;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.DETACH })
     @JoinColumn(name = "id_clinico", referencedColumnName = "id_clinico", foreignKey = @ForeignKey(name = "fk_prontuario_clinico"))
@@ -66,7 +66,7 @@ public class Prontuario {
             linkTo(methodOn(ProntuarioController.class).show(id)).withSelfRel(),
             linkTo(methodOn(ProntuarioController.class).destroy(id)).withRel("delete"),
             linkTo(methodOn(ProntuarioController.class).index()).withRel("all"),
-            linkTo(methodOn(PacienteController.class).show(this.getPaciente().getId())).withRel("paciente"),           
+            // linkTo(methodOn(PacienteController.class).show(this.getPaciente().getId())).withRel("paciente"),           
             linkTo(methodOn(ClinicoController.class).show(this.getClinico().getId())).withRel("clinico")
 
         );
